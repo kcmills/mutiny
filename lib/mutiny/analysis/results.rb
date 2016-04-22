@@ -1,10 +1,10 @@
 module Mutiny
   module Analysis
     class Results
-      def add(mutant, test_run)
+      def add(mutant, test_run_list)
         mutants << mutant
-        test_runs[mutant] = test_run
-        killed << mutant if mutant.stillborn? || test_run.failed?
+        test_runs[mutant] = test_run_list
+		killed << mutant if mutant.stillborn? || test_run_list.find { |run| run.failed? } # Modified to enable multiple test runs to be returned per mutant
       end
 
       def kill_count

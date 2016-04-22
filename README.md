@@ -14,3 +14,7 @@ Currently supports Ruby versions of these [method level mutation operators](http
 Thank-you to the authors of other projects and resources that have inspired mutiny, including:
 
 * Markus Schirp's [mutant](https://github.com/mbj/mutant), which paved the way for modern mutation testing in Ruby. In particular, mutiny's RSpec integration is based on the Markus's stellar work on mutant.
+
+* F. I. Vokolos and P. G. Frankl's work in developing the original Textual Differencing technique for use in regression testing, particularly their paper "Pythia: a regression test selection tool based on textual differencing" 
+ (in ENCRESS ’97 IFIP TC5 WG5.4 3rd international conference on on Reliability, quality and safety of software-intensive systems, 1997, pp. 3–21). An adapted version of this technique is now used as part of mutiny's 
+  analyser component to speed up the process of mutation testing.

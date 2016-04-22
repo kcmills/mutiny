@@ -44,9 +44,11 @@ module Mutiny
           number_of_tests = "n/a"
           runtime = "n/a"
         else
-          executed_count = results.test_run_for(mutant).executed_count
-          total_count = results.test_run_for(mutant).tests.size
-          runtime = results.test_run_for(mutant).runtime
+          # Modified to enable the mutant information to be gathered from multiple test runs per mutant
+		  executed_count = results.test_run_for(mutant).inject(0){ |sum, run| sum + run.executed_count}
+		  total_count = results.test_run_for(mutant).inject(0){ |sum, run| sum + run.tests.size}
+		  runtime = results.test_run_for(mutant).inject(0){ |sum, run| sum + run.runtime}
+		  
           number_of_tests = "#{executed_count} (of #{total_count})"
         end
         [number_of_tests, runtime]

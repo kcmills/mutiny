@@ -41,7 +41,7 @@ module Mutiny
       def run_tests(mutant)
         Isolation.call do
           test_set = select_tests(mutant)
-          integration.run(test_set, fail_fast: true)
+          [integration.run(test_set, fail_fast: true)] # Changed to a list format for consistency as part of enabling multiple test runs to be returned per mutant
         end
       end
     end

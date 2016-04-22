@@ -4,6 +4,8 @@ require_relative 'integration/rspec'
 require_relative 'mutants/ruby'
 require_relative 'mutants/storage'
 require_relative 'analysis/analyser/default'
+require_relative 'analysis/analyser/textual_differencing_selected_only'
+require_relative 'analysis/analyser/textual_differencing_selected_first'
 
 module Mutiny
   class Configuration
@@ -20,7 +22,17 @@ module Mutiny
       @integration = Integration::RSpec.new
       @mutator = Mutants::Ruby.new
       @mutant_storage = Mutants::Storage.new
-      @analyser = Analysis::Analyser::Default.new(integration: @integration)
+	  
+	  ''' 
+	  The analyser component can be set to one of the following:
+		Default - Selects tests for each mutant based on the mutant`s subject and only runs these tests on the mutant
+		TextualDifferencing_SelectedOnly - Selects tests for each mutant based on the coverage information of the test suite
+			and only runs these tests on the mutant
+		TextualDifferencing_SelectedFirst - Selects tests for each mutant based on the coverage information of the test suite,
+			runs these tests and then, if the mutant has not been killed, runs any tests not previously selected on the mutant
+	  '''
+      @analyser = Analysis::Analyser::TextualDifferencing_SelectedFirst.new(integration: @integration)
+
     end
 
     def load_paths
